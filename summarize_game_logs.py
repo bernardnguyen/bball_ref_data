@@ -23,6 +23,7 @@ for i,p in tqdm(player_list.iterrows()):
 		gamelogs = gamelogs[CATS]
 		gamelogs['MP'] = [mp.split(':')[0] for mp in gamelogs['MP']]
 
+		gamelogs = gamelogs.replace('',0)
 		averages = list(gamelogs.astype('int64').mean().values)
 		stdevs = list(gamelogs.astype('int64').std().values)
 		player_summaries.loc[i] = [name,player_id,year] + averages + stdevs
