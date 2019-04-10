@@ -10,7 +10,7 @@ player_list = pd.read_csv('data/players_failed_to_load.csv', header=0)
 
 CATS_AVG = ['%s_avg' % c for c in CATS]
 CATS_STD = ['%s_std' % c for c in CATS]
-CATS_SUM = ['Name','PlayerID','Year'] + CATS_AVG + CATS_STD
+CATS_SUM = ['Name','PlayerID','Year','GP'] + CATS_AVG + CATS_STD
 
 player_summaries = pd.DataFrame(columns=CATS_SUM)
 failed = pd.DataFrame(columns=player_list.columns)
@@ -23,32 +23,18 @@ for i,p in tqdm(player_list.iterrows()):
 		gamelogs = gamelogs[CATS]
 		gamelogs['MP'] = [mp.split(':')[0] for mp in gamelogs['MP']]
 
-		gamelogs = gamelogs.replace('',0)
+		gamelogs = gamelogs[gamelogs['MP'] != '']
+		gamelogs = gamelogs[gamelogs['MP'] != '00']
+		gamelogs = gamelogs[gamelogs['MP'] != None]
 		averages = list(gamelogs.astype('int64').mean().values)
 		stdevs = list(gamelogs.astype('int64').std().values)
-		player_summaries.loc[i] = [name,player_id,year] + averages + stdevs
+		player_summaries.loc[i] = [name,player_id,year] + [len(gamelogs)] + averages + stdevs
+	except AttributeError:
+		pass
 	except:
-		try:
-			gamelogs = pb.get_player_gamelog(player_id, year)
-			gamelogs = gamelogs[CATS]
-			gamelogs['MP'] = [mp.split(':')[0] for mp in gamelogs['MP']]
+		failed = failed.append({'PlayerID':player_id,'Name':name,'Year':year},ignore_index=True)
+		pass
 
-			averages = list(gamelogs.astype('int64').mean().values)
-			stdevs = list(gamelogs.astype('int64').std().values)
-			player_summaries.loc[i] = [name,player_id,year] + averages + stdevs
-		except:
-			try:
-				gamelogs = pb.get_player_gamelog(player_id, year)
-				gamelogs = gamelogs[CATS]
-				gamelogs['MP'] = [mp.split(':')[0] for mp in gamelogs['MP']]
-
-				averages = list(gamelogs.astype('int64').mean().values)
-				stdevs = list(gamelogs.astype('int64').std().values)
-				player_summaries.loc[i] = [name,player_id,year] + averages + stdevs
-			except:
-				failed = failed.append({'PlayerID':player_id,'Name':name,'Year':year},ignore_index=True)
-				pass
-
-print(len(failed))
+print(len(failed), len(player_summaries))
 player_summaries.to_csv('data/player_summaries.csv',mode='a',index=False)
 failed.to_csv('data/players_failed_to_load.csv',index=False)
