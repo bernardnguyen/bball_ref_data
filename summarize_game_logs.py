@@ -36,5 +36,5 @@ for i,p in tqdm(player_list.iterrows()):
 		pass
 
 print(len(failed), len(player_summaries))
-player_summaries.to_csv('data/player_summaries.csv',mode='a',index=False)
+player_summaries.to_csv('data/player_summaries.csv',mode='a',index=False, header=False)
 failed.to_csv('data/players_failed_to_load.csv',index=False)
