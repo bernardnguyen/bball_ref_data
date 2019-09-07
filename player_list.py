@@ -3,12 +3,17 @@ import pandas as pd
 
 csv_files = glob.glob('data/Season_Totals/*.csv')
 
-player_df = pd.DataFrame(columns=['PlayerID','Name','Year'])
+try:
+	player_df = pd.read_csv('data/player_list.csv')
+except:
+	player_df = pd.DataFrame(columns=['PlayerID','Name','Year'])
 
-for f in csv_files:
+for f in csv_files:	
 	year = f.split('/')[2][:-4]
-	player_dict = {}
+	if len(player_df['Year'] == int(f)) != 0:
+		continue
 
+	player_dict = {}
 	df = pd.read_csv(f)
 	player_list = list(set(df['Player']))
 	for p in player_list:
@@ -22,4 +27,7 @@ for f in csv_files:
 											'Name':player,
 											'Year':year}, ignore_index=True)
 
-player_df.to_csv('data/player_list.csv',index=False)
+if os.path.isfile('data/players_failed_to_load.csv'):
+	player_df.to_csv('data/players_failed_to_load.csv',mode='a',index=False,header=False)
+else:
+	player_df.to_csv('data/player_list.csv',mode='a',index=False,header=False)
