@@ -34,7 +34,7 @@ for idx in tqdm(player_list.index):
 		gamelogs = gamelogs[gamelogs['MP'] != '00']
 		gamelogs = gamelogs[gamelogs['MP'] != None]
 
-		player_summaries.loc[idx,['Name','PlayerID','Year','Age','GP']] = [name,player_id,year,age,len(gamelogs)]
+		player_summaries.loc[idx,['PlayerID','Year','Name','Age','GP']] = [player_id,year,name,age,len(gamelogs)]
 		player_summaries.loc[idx,['%s_avg' % c for c in CATS[1:]]] = list(gamelogs.astype('int64').mean().values)
 		player_summaries.loc[idx,['%s_std' % c for c in CATS[1:]]] = list(gamelogs.astype('int64').std().values)
 	except AttributeError:
@@ -43,6 +43,8 @@ for idx in tqdm(player_list.index):
 		raise
 	except Exception as e:
 		# print(e)
+		if idx in player_summaries.index:
+			player_summaries = player_summaries.drop(index=idx)
 		failed = failed.append({'PlayerID':player_id,'Name':name,'Year':year},ignore_index=True)
 		pass
 
