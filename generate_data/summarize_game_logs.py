@@ -9,9 +9,9 @@ from tqdm import tqdm
 #    FTA, FT%, ORB, DRB, TRB, AST, STL, BLK, TOV, PF, PTS, GmSc
 CATS = ['Age','MP','PTS','ORB','DRB','AST','STL','BLK','TOV','PF','FG','FGA','3P','3PA','FT','FTA']
 try:
-	player_list = pd.read_csv('data/players_failed_to_load.csv')
+	player_list = pd.read_csv('../data/players_failed_to_load.csv')
 except:
-	player_list = pd.read_csv('data/player_list.csv')
+	player_list = pd.read_csv('../data/player_list.csv')
 CATS_SUM = [['%s_avg' % c, '%s_std' % c] for c in CATS[1:]]
 CATS_SUM = np.array(CATS_SUM)
 CATS_SUM = CATS_SUM.flatten()
@@ -49,8 +49,8 @@ for idx in tqdm(player_list.index):
 		pass
 
 print('Failed retrievals:\t%d\nSuccessful retrievals:\t%d' % (len(failed), len(player_summaries)))
-if os.path.isfile('data/player_summaries.csv'):
-	player_summaries.to_csv('data/player_summaries.csv',mode='a',index=False,header=False)
+if os.path.isfile('../data/player_summaries.csv'):
+	player_summaries.to_csv('../data/player_summaries.csv',mode='a',index=False,header=False)
 else:
-	player_summaries.to_csv('data/player_summaries.csv',index=False)
-failed.to_csv('data/players_failed_to_load.csv',index=False)
+	player_summaries.to_csv('../data/player_summaries.csv',index=False)
+failed.to_csv('../data/players_failed_to_load.csv',index=False)

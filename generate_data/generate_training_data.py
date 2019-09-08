@@ -8,7 +8,7 @@ from tqdm import tqdm
 #		MP,PTS,ORB,DRB,AST,STL,BLK,TOV,PF,FG,FGA,3P,3PA,FT,FTA 
 
 # Load season summaries and index on PlayerID and Year
-player_summaries = pd.read_csv('data/player_summaries.csv')
+player_summaries = pd.read_csv('../data/player_summaries.csv')
 player_summaries = player_summaries.fillna(0)
 all_players = list(set(player_summaries['PlayerID']))
 player_summaries = player_summaries.set_index(['PlayerID','Year'])
@@ -47,4 +47,4 @@ for player in tqdm(all_players):
 		training_data.loc[idx,:] = tmp_df.values
 		idx += 1
 
-training_data.to_csv('data/training_data_%d_years.csv' % N, index=False)
+training_data.to_csv('../data/training_data_%d_years.csv' % N, index=False)

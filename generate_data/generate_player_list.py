@@ -1,11 +1,11 @@
 import os,glob
 import pandas as pd
 
-csv_files = glob.glob('data/Season_Totals/*.csv')
+csv_files = glob.glob('../data/Season_Totals/*.csv')
 
 years_to_skip = []
 try:
-	players_already_had = pd.read_csv('data/player_list.csv')
+	players_already_had = pd.read_csv('../data/player_list.csv')
 	years_to_skip = list(set(players_already_had['Year']))
 except:
 	pass
@@ -33,7 +33,7 @@ for f in csv_files:
 											'Year':year}, ignore_index=True)
 
 # If expanding, failed to load already exists. Append to that list.
-if os.path.isfile('data/players_failed_to_load.csv'):
-	player_df.to_csv('data/players_failed_to_load.csv',mode='a',index=False,header=False)
+if os.path.isfile('../data/players_failed_to_load.csv'):
+	player_df.to_csv('../data/players_failed_to_load.csv',mode='a',index=False,header=False)
 # No matter the case, append to the player list file.
-player_df.to_csv('data/player_list.csv',mode='a',index=False,header=False)
+player_df.to_csv('../data/player_list.csv',mode='a',index=False,header=False)
