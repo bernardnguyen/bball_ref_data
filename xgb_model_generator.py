@@ -10,11 +10,12 @@ def main(N=3, save=True, verbose=False):
 	N_CATS = int(len(data_df.columns) / N)
 	# Cut off _Y# from categories
 	CATS = [c[:-3] for c in data_df.columns[:N_CATS]]
+	data_df = data_df.drop(data_df.index[data_df.iloc[:,-N_CATS:].sum(axis=1) == 0])
 
 
 
 	# Split input and output data
-	X = data_df.iloc[:,:(N_CATS*N)]
+	X = data_df.iloc[:,:(N_CATS*(N-1))]
 	y = data_df.iloc[:,-N_CATS:]
 
 	# Process output data
@@ -32,7 +33,17 @@ def main(N=3, save=True, verbose=False):
 	if verbose:
 		print('XGBoost Regressor Results:')
 	for col in y.columns:
-		model = xgb.XGBRegressor(objective='reg:squarederror')
+		model = xgb.XGBRegressor(learning_rate=0.01,
+									reg_alpha=0.001,
+									reg_lambda=0.005,
+									n_estimators=1000,
+									max_depth=4,
+									min_child_weight=1,
+									gamma=0.2,
+									subsample=0.7,
+									colsample_bytree=0.6,
+									scale_pos_weight=1,
+									objective='reg:squarederror',eval_metric='rmse')
 		model.fit(X_train.values, y_train[col].values)
 		model_pred = model.predict(X_test.values)
 		model_cv = cross_validate(model, X_train.values, y_train[col].values, cv=3, scoring=['neg_mean_squared_error','r2'], return_train_score=True)
@@ -43,12 +54,22 @@ def main(N=3, save=True, verbose=False):
 			print('\t\t%.4f\tNegative mean squared error' % np.mean(model_cv['train_neg_mean_squared_error']))
 			print('\t\t %.4f\tR^2' % np.mean(model_cv['train_r2']))
 			print('\tTesting Data:')
-			print('\t\t%.4f\tNegative mean squared error' % -mean_squared_error(y_test[col],model_pred))
-			print('\t\t %.4f\tR^2' % r2_score(y_test[col],model_pred))	
+			print('\t\t%.4f\tNegative mean squared error' % -mean_squared_error(y_test[col].values,model_pred))
+			print('\t\t %.4f\tR^2' % r2_score(y_test[col].values,model_pred))	
+
+		if save:
+			with open('models/%s_%d.xgbm' % (col,N),'wb') as fout:
+				model.fit(X.values,y[col].values)
+				model_cv = cross_validate(model, X.values, y[col].values, cv=3, scoring=['neg_mean_squared_error','r2'], return_train_score=True)
+				if verbose:
+					print('\tFinal Model Training Metrics:')
+					print('\t\t%.4f\tNegative mean squared error' % np.mean(model_cv['train_neg_mean_squared_error']))
+					print('\t\t %.4f\tR^2' % np.mean(model_cv['train_r2']))	
+				dill.dump(model,fout)
+
+		if verbose:
 			print('\n')
 
-		with open('models/%s_%d.xgbm' % (col,N),'wb') as fout:
-			dill.dump(model,fout)
 
 if __name__ == '__main__':
 	# Default parameters
