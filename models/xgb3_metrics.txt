@@ -1,0 +1,169 @@
+XGBoost Regressor Results:
+	PTS:
+	Training Data Cross Validation:
+		-5.9374	Negative mean squared error
+		 0.8369	R^2
+	Testing Data:
+		-9.8412	Negative mean squared error
+		 0.7543	R^2
+	Final Model Training Metrics:
+		-6.6425	Negative mean squared error
+		 0.8226	R^2
+
+
+	ORB:
+	Training Data Cross Validation:
+		-0.1142	Negative mean squared error
+		 0.8494	R^2
+	Testing Data:
+		-0.1981	Negative mean squared error
+		 0.7472	R^2
+	Final Model Training Metrics:
+		-0.1285	Negative mean squared error
+		 0.8322	R^2
+
+
+	DRB:
+	Training Data Cross Validation:
+		-0.5856	Negative mean squared error
+		 0.8272	R^2
+	Testing Data:
+		-0.9763	Negative mean squared error
+		 0.7166	R^2
+	Final Model Training Metrics:
+		-0.6499	Negative mean squared error
+		 0.8091	R^2
+
+
+	AST:
+	Training Data Cross Validation:
+		-0.4045	Negative mean squared error
+		 0.8866	R^2
+	Testing Data:
+		-0.7882	Negative mean squared error
+		 0.8101	R^2
+	Final Model Training Metrics:
+		-0.4624	Negative mean squared error
+		 0.8762	R^2
+
+
+	STL:
+	Training Data Cross Validation:
+		-0.0464	Negative mean squared error
+		 0.7833	R^2
+	Testing Data:
+		-0.0739	Negative mean squared error
+		 0.6773	R^2
+	Final Model Training Metrics:
+		-0.0513	Negative mean squared error
+		 0.7643	R^2
+
+
+	BLK:
+	Training Data Cross Validation:
+		-0.0324	Negative mean squared error
+		 0.8819	R^2
+	Testing Data:
+		-0.0599	Negative mean squared error
+		 0.7608	R^2
+	Final Model Training Metrics:
+		-0.0351	Negative mean squared error
+		 0.8683	R^2
+
+
+	TOV:
+	Training Data Cross Validation:
+		-0.1165	Negative mean squared error
+		 0.8144	R^2
+	Testing Data:
+		-0.2028	Negative mean squared error
+		 0.7074	R^2
+	Final Model Training Metrics:
+		-0.1327	Negative mean squared error
+		 0.7947	R^2
+
+
+	PF:
+	Training Data Cross Validation:
+		-0.1717	Negative mean squared error
+		 0.7136	R^2
+	Testing Data:
+		-0.2834	Negative mean squared error
+		 0.5251	R^2
+	Final Model Training Metrics:
+		-0.1924	Negative mean squared error
+		 0.6785	R^2
+
+
+	FG:
+	Training Data Cross Validation:
+		-0.8411	Negative mean squared error
+		 0.8285	R^2
+	Testing Data:
+		-1.3658	Negative mean squared error
+		 0.7446	R^2
+	Final Model Training Metrics:
+		-0.9397	Negative mean squared error
+		 0.8132	R^2
+
+
+	FGA:
+	Training Data Cross Validation:
+		-3.6190	Negative mean squared error
+		 0.8331	R^2
+	Testing Data:
+		-5.7651	Negative mean squared error
+		 0.7544	R^2
+	Final Model Training Metrics:
+		-4.0138	Negative mean squared error
+		 0.8191	R^2
+
+
+	3P:
+	Training Data Cross Validation:
+		-0.0723	Negative mean squared error
+		 0.8471	R^2
+	Testing Data:
+		-0.1432	Negative mean squared error
+		 0.7120	R^2
+	Final Model Training Metrics:
+		-0.0838	Negative mean squared error
+		 0.8256	R^2
+
+
+	3PA:
+	Training Data Cross Validation:
+		-0.4342	Negative mean squared error
+		 0.8670	R^2
+	Testing Data:
+		-0.8421	Negative mean squared error
+		 0.7523	R^2
+	Final Model Training Metrics:
+		-0.5025	Negative mean squared error
+		 0.8480	R^2
+
+
+	FT:
+	Training Data Cross Validation:
+		-0.3213	Negative mean squared error
+		 0.8472	R^2
+	Testing Data:
+		-0.6005	Negative mean squared error
+		 0.7484	R^2
+	Final Model Training Metrics:
+		-0.3632	Negative mean squared error
+		 0.8338	R^2
+
+
+	FTA:
+	Training Data Cross Validation:
+		-0.4995	Negative mean squared error
+		 0.8512	R^2
+	Testing Data:
+		-0.9045	Negative mean squared error
+		 0.7572	R^2
+	Final Model Training Metrics:
+		-0.5622	Negative mean squared error
+		 0.8378	R^2
+
+
