@@ -26,10 +26,7 @@ CATS = pred_df.columns
 for c in CATS:
 	with open('models/%s_%d.xgbm' % (c,N), 'rb') as fin:
 		model = dill.load(fin)
-	print(len(model.get_booster().feature_names))
-	print(data_df.shape)
-	print(N)
-	model_pred = model.predict(data_df.as_matrix())
+	model_pred = model.predict(data_df.values)
 	pred_df.loc[:,c] = model_pred
 
 # Change player IDs to player names
@@ -38,7 +35,5 @@ player_summaries = player_summaries.loc[~player_summaries.index.duplicated(keep=
 for pid in pred_df.index:
 	pred_df.loc[pid,'Name'] = player_summaries.loc[pid,'Name']
 
-print(pred_df['Name'])
-exit()
-
-pred_df.to_csv('predictions/')
+pred_df = pred_df.set_index('Name')
+pred_df.to_csv('data/predictions_%d.csv' % YEAR)
