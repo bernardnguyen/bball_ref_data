@@ -64,7 +64,10 @@ pred_df['3PP_impact'] = relative_value(pred_df,'3PP') * relative_value(pred_df,'
 impact_cols = [c for c in pred_df.columns if '_impact' in c]
 pred_df[impact_cols] = normalize(pred_df[impact_cols],norm='max',axis=0)
 pred_df['REL_impact'] = pred_df[impact_cols].sum(axis=1)
+
+# Clean up df
 pred_df = pred_df.sort_values(by='REL_impact',ascending=False)
+pred_df = pred_df.round(3)
 
 # Save the predictions
 pred_df.to_csv('data/predictions_%d.csv' % YEAR)
