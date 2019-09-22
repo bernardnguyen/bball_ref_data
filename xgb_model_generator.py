@@ -59,6 +59,7 @@ def main(N=3, save=True, verbose=False):
 
 		if save:
 			with open('models/%s_%d.xgbm' % (col,N),'wb') as fout:
+				# Train on all data
 				model.fit(X.values,y[col].values)
 				model_cv = cross_validate(model, X.values, y[col].values, cv=3, scoring=['neg_mean_squared_error','r2'], return_train_score=True)
 				if verbose:
