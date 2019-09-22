@@ -5,7 +5,7 @@ import dill
 from sklearn.preprocessing import normalize
 
 # Number of years (including prediction)
-N=4
+N=3
 # Year of prediction
 YEAR = 2020
 
@@ -70,4 +70,4 @@ pred_df = pred_df.sort_values(by='REL_impact',ascending=False)
 pred_df = pred_df.round(3)
 
 # Save the predictions
-pred_df.to_csv('data/predictions_%d.csv' % YEAR)
+pred_df.to_csv('data/predictions_%d_%d.csv' % (N,YEAR))
